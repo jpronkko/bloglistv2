@@ -1,0 +1,15 @@
+// These items have to be defined in the .env file for running the server locally 
+// (npm run start/dev/start:test) or for testing (npm run test)
+TEST_MONGODB_URI=mongodb://localhost/bloglist
+DEV_MONGODB_URI=mongodb://localhost/bloglist
+MONGODB_URI=mongodb+srv://muser:{password}@{mongodbatlashost]/bloglist?retryWrites=true&w=majority
+PORT=3001
+// jwt uses the following for user token signing
+SECRET={secret}
+
+// Configuring the corresponding items to heroku env vars:
+heroku config:set MONGODB_URI=mongodb+srv://muser:{password}@{mongodbatlashost]/bloglist?retryWrites=true&w=majority
+
+heroku config:set SECRET={something here}
+
+mongodb+srv://<username>:<password>@cygnusx1.vnhzd.mongodb.net/?retryWrites=true&w=majority

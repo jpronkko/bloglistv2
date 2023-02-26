@@ -1,0 +1,48 @@
+{
+  "name": "blogilista",
+  "version": "1.0.0",
+  "description": "list of blogs",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node index.js",
+    "start:local": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
+    "build:ui": "rm -fr build && cd ./frontend && npm run build && cp -r build ../",
+    "deploy": "git push heroku main",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
+    "lint": "eslint .",
+    "eslint": "eslint './**/*.{js,jsx}'",
+    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "test:e2e": "NODE_ENV=test cypress run",
+    "logs:prod": "heroku logs --tail",
+    "start:test": "NODE_ENV=test node index.js"
+  },
+  "author": "Jukka Rönkkö",
+  "license": "ISC",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "cypress": "^12.5.1",
+    "eslint": "^7.13.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.8",
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.13",
+    "mongoose-unique-validator": "^2.0.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
