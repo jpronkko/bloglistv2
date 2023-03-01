@@ -1,3 +1,4 @@
+const path = require('path');
 const jwt = require('jsonwebtoken')
 const logger = require('./logger')
 
@@ -17,6 +18,10 @@ const requestToken = (request, response, next) => {
     request.decodedToken = jwt.verify(nonDecodToken, process.env.SECRET)
   }
   next()
+}
+
+const pageEndpoint = (request, reponse) => {
+  reponse.sendFile(path.join(__dirname, 'build/static/index.html'))
 }
 
 const unknownEndpoint = (request, response) => {
@@ -41,6 +46,7 @@ const errorHandler = (error, request, response, next) => {
 
 module.exports = {
   requestLogger,
+  pageEnpoint: pageEndpoint,
   unknownEndpoint,
   errorHandler,
   requestToken

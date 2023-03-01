@@ -48,7 +48,7 @@ describe('Blog app', function () {
 
       cy.openPage()
       cy.contains('All blogs loaded!').should('be.visible')
-      cy.get('#show_toggle').should('exist').click()
+      cy.get('#show_toggle').click()
       cy.get('#title').type(blog.title)
       cy.get('#author').type(blog.author)
       cy.get('#url').type(blog.url)
@@ -64,7 +64,7 @@ describe('Blog app', function () {
       cy.addBlog(blog)
       cy.openPage()
       cy.contains(blog.title).parent().as('theblog')  
-      cy.get('@theblog').get('#maximize').click()
+      cy.get('@theblog').get('.blog-link').click()
       
       cy.contains(blog.title).parent().as('themaxblog')
       cy.get('@themaxblog').parent().get('#likesButton').click()
@@ -77,7 +77,7 @@ describe('Blog app', function () {
       cy.addBlog(blog)
       cy.openPage()    
 
-      cy.contains(blog.title).get('#maximize').click()
+      cy.contains(blog.title).get('.blog-link').click()
       cy.contains(blog.title).parent().as('themaxblog')
       
       cy.get('@themaxblog').get('#deleteButton').click()
@@ -94,7 +94,7 @@ describe('Blog app', function () {
 
       cy.openPage()    
 
-      cy.contains(blog.title).get('#maximize').click()
+      cy.contains(blog.title).get('.blog-link').click()
       cy.contains(blog.title).parent().as('themaxblog')
       
       cy.get('@themaxblog').should('not.contain', '#deleteButton')
@@ -112,13 +112,34 @@ describe('Blog app', function () {
       })
      
       cy.openPage()    
+      cy.contains('All blogs loaded!').should('be.visible')
 
-      cy.get('#blog-list').get('#maximize').each(($el, index, $list) => {
+      cy.get('#blog-list').as('blist')
+      
+      cy.get('@blist').get('.blog-link').each((el, index, list) => {
+        const url = el.prop('href')
+        cy.log("URl:" + url)
+        cy.visit(url)
+        cy.get('#blog_likes').contains(likesSorted[index])
+        //cy.go('back')
+      })
+      
+    /*  cy.get('@blist').get('.blog-link').each(($el, index, $list) => {
+        cy.log($el)
         cy.wrap($el).click()
         cy.get('#blog_likes').contains(likesSorted[index])
-        cy.get('#home_button').click()
+        //cy.get('#home_button').click()
       })
-
+*/
+     /* cy.get('#blog-list').get('a').each((page, index) => {
+        cy.log(page)
+        cy.wrap(page).click()
+        cy.get('#blog_likes').contains(likesSorted[index])*/
+        /*cy.request(page.prop('href')).then(() => {
+          cy.log('prop' + page.prop('href'))
+          cy.get('#blog_likes').contains(likesSorted[index])
+        })*/
+      //})
       //cy.get('#blog-list').get('.likesLine').each(($el, index, $list) => {
       //  cy.contains(likesSorted[index])
       //})

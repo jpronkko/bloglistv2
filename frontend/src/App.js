@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Route, Routes, useMatch, Navigate } from 'react-router-dom'
+import { Route, Routes, useMatch } from 'react-router-dom'
 import { Container } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
@@ -77,27 +77,46 @@ const App = () => {
       <div>
         <UserStatus />
         <Notification />
-        <Routes>   
-          <Route 
-            path='/users/:id' 
-            element={matchedUser ? <User user={matchedUser} /> : <Navigate replace to="/error" />}  
-          />
-
+        <Routes>     
           <Route path="/users" element={<UserList />} />
+
+          <Route path="/blogs/:id" element={
+             matchedBlog ? <Blog blog={matchedBlog} /> :
+             <Error msg={`No user found with id ${matchedBlog?.id}.`}/> 
+            } 
+          />  
           
-          <Route 
-            path="/blogs/:id" 
-            element={matchedBlog ? <Blog blog={matchedBlog}/> : <Navigate replace to="/error"/>}  
+          <Route path="/users/:id" element={
+            matchedUser ? <User user={matchedUser} /> :
+            <Error msg={`No user found with id ${matchedUser?.id}.`}/> 
+          }
           />
 
-          <Route path="/error" element={<Error />} />
+          <Route path="/error" element={<Error msg="Just error!" />} />
         
           <Route path="/" element={<Home />} />
+          <Route path="*" element={<Error msg="No route found!"/>}/>
         </Routes>
       </div>
     )
   }
 
+  /*
+  <Route path="/blogs/:id" element={<Error msg={"Straight blog" + matchedBlog?.id}/>} />
+  */
+  /*
+
+          <Route 
+            path='/users/:id' 
+            element={matchedUser ? <User user={matchedUser} /> : <Navigate replace to="/error" msg={"kre" + userPathMatch?.params.id} />}  
+          />
+
+   <Route 
+            path="/blogs/:id" 
+            element={matchedBlog ? <Blog blog={matchedBlog}/> : <Navigate replace to="/error" msg={"pre" + blogPathMatch?.params.id} />}  
+          />
+*/
+  // <Route path="blogs/63fdf83e5174c5e62fe74c2e" element={<Error msg="Straight blog" />} />
   return (
     <ThemeProvider theme={theme}>
       <Container>

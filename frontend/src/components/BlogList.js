@@ -30,7 +30,7 @@ const BlogList = ({title, blogs}) => {
         </Typography>
         </CardContent>
         <CardActions>
-          <Link id="maximize" size='small' component={RouterLink} to={`/blogs/${blog.id}`}>Learn more</Link>
+          <Link class='blog-link' size='small' component={RouterLink} to={`/blogs/${blog.id}`}>Learn more</Link>
         </CardActions>
       </Card>
     )

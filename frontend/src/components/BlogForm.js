@@ -35,10 +35,10 @@ const BlogForm = () => {
         <TextField id='title' label='Title' variant='filled' {...title}/>
       </div>
       <div style={{marginTop: 1}}>
-        <TextField id='author' label='Author' variant='filled'  {...author} />
+        <TextField id='author' label='Author' variant='filled' {...author} />
       </div>
       <div style={{marginTop: 1}}>
-        <TextField id='url' label='Url' variant='filled'      {...url} />
+        <TextField id='url' label='Url' variant='filled' {...url} />
       </div>
       <div style={{marginTop: 10, marginBottom: 5}}>
         <Button id='submit_blog' type='submit' variant='contained' color='primary'>create</Button>

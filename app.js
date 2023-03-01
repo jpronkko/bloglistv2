@@ -41,6 +41,8 @@ app.get('/health', (req, res) => {
   res.send('ok')
 })
 
+app.use('*', express.static('build'))
+//app.use('/error', express.static('build'))
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
