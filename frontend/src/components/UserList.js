@@ -16,7 +16,7 @@ import {
 
 const UserList = () => {
   const users = useSelector(state => state.userInfo)
-
+  
   return(
     <div id='user-list'>
       

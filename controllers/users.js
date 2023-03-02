@@ -8,7 +8,7 @@ const MIN_USERNAME_LEN = 3
 usersRouter.get('/', async (request, response) => {
   const users = await User
     .find({}).populate('blogs', { title: 1, url: 1, likes: 1 })
-  
+
   //response.json(users)
   response.json(users.map(u => u.toJSON()))
 })
@@ -24,7 +24,7 @@ usersRouter.post('/', async (request, response) => {
   if(body.username.length < MIN_USERNAME_LEN) {
     return response.status(400).json({ error: 'too short username' })
   }
-  
+
   if(body.password.length < MIN_PASSWORD_LEN) {
     return response.status(400).json({ error: 'too short password' })
   }

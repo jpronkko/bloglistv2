@@ -31,7 +31,6 @@ const LoginForm = () => {
     .catch(error => {
       console.error('Login failed: ', error.message)
       if(error.response.status === 401) {
-        console.error("dispatching error!")
         dispatch(errorMessage('Wrong username or password!'))
       } else {
         dispatch(errorMessage('Error in login, check your network connection! Error:' + error.message))

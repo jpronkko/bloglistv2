@@ -25,39 +25,39 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('openPage', () => {
-  cy.visit(Cypress.env("localUrl"))
+  cy.visit(Cypress.env('localUrl'))
 })
 
 Cypress.Commands.add('resetData', () => {
-  cy.request('POST',  Cypress.env("localUrl") + '/api/testing/reset')
+  cy.request('POST',  Cypress.env('localUrl') + '/api/testing/reset')
 })
 
-Cypress.Commands.add('addUser', ({name, username, password}) => {
+Cypress.Commands.add('addUser', ({ name, username, password }) => {
   const user = {
     name: name,
     username: username,
     password: password
   }
 
-  cy.request('POST', Cypress.env("localUrl") + '/api/users', user).then(() => {
-    console.log('user added')
+  cy.request('POST', Cypress.env('localUrl') + '/api/users', user).then(() => {
+    cy.log('user added')
   })
 })
 
-Cypress.Commands.add('login', ({username, password}) => {
+Cypress.Commands.add('login', ({ username, password }) => {
   const user = {
     username: username,
     password: password
   }
 
-  cy.request('POST', Cypress.env("localUrl") + '/api/login', user)
-  .then(({ body }) => {
-    localStorage.setItem('loggedBlogAppUser', JSON.stringify(body))
+  cy.request('POST', Cypress.env('localUrl') + '/api/login', user)
+    .then(({ body }) => {
+      localStorage.setItem('loggedBlogAppUser', JSON.stringify(body))
     //cy.visit(Cypress.env("localUrl"))
-  })
+    })
 })
 
-Cypress.Commands.add('addBlog', ({title, author, url}) => {
+Cypress.Commands.add('addBlog', ({ title, author, url }) => {
   const blog = {
     title: title,
     author: author,
@@ -67,23 +67,22 @@ Cypress.Commands.add('addBlog', ({title, author, url}) => {
   const storedToken = JSON.parse(localStorage.getItem('loggedBlogAppUser'))
   //console.log('stored: ', storedToken)
   cy.request({
-    method: 'POST', 
-    url: Cypress.env("localUrl") + '/api/blogs', 
-    headers: { Authorization: `bearer ${storedToken["token"]}` },
+    method: 'POST',
+    url: Cypress.env('localUrl') + '/api/blogs',
+    headers: { Authorization: `bearer ${storedToken['token']}` },
     body: blog
-  }).then(({body}) => {
-    console.log('ID: ' + body.id)
+  }).then(({ body }) => {
     return body
-  })  
+  })
 })
 
 Cypress.Commands.add('modifyBlog', (blog) => {
   const storedToken = JSON.parse(localStorage.getItem('loggedBlogAppUser'))
   cy.log('Blog' + JSON.stringify(blog))
   cy.request({
-    method: 'PUT', 
-    url: `${Cypress.env("localUrl")}/api/testing/blogmodify/${blog.id}`, 
-    headers: { Authorization: `bearer ${storedToken["token"]}` },
+    method: 'PUT',
+    url: `${Cypress.env('localUrl')}/api/testing/blogmodify/${blog.id}`,
+    headers: { Authorization: `bearer ${storedToken['token']}` },
     body: blog
   })
 })

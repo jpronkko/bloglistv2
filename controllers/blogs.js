@@ -28,10 +28,10 @@ async function findUser(request, response)  {
   const decodedToken = request.decodedToken
   if(!decodedToken) {
     logger.error('User token missing or invalid')
-    return { 
+    return {
       error: response
         .status(401)
-        .json({ error: 'token missing or invalid' }) 
+        .json({ error: 'token missing or invalid' })
     }
   }
 
@@ -40,7 +40,7 @@ async function findUser(request, response)  {
     logger.error(`User with id ${decodedToken.id} not found!`)
     return { error: response.status(404).json({ error: 'no such user found' }) }
   }
- 
+
   logger.info('User found:', user)
   return { user }
 }
@@ -79,7 +79,7 @@ blogsRouter.post('/', async (request, response) => {
     likes: body.likes,
     user: user._id
   })
-  
+
   const savedBlog = await newBlog.save()
 
   user.blogs = user.blogs.concat(savedBlog._id)
@@ -93,20 +93,20 @@ blogsRouter.post('/', async (request, response) => {
 const hasUserABlog = (user, request, response) => {
   //logger.error('USER ', user)
   const blogId = request.params.id
-  logger.error('user has blogs:', user.blogs)
+  logger.error('user has blogs:', user.blogs, user.blogs.length)
   if(!user.blogs.includes(blogId)) {
-    return { 
+    return {
       error: response
         .status(404)
         .json({ error: 'no such blog for user found' }) }
-  } 
+  }
 
   return { blogId: blogId }
 }
 
 
 blogsRouter.delete('/:id', async (request, response) => {
- 
+
   const userFound = await findUser(request, response)
   if(!userFound.user) {
     return userFound.error
@@ -119,7 +119,7 @@ blogsRouter.delete('/:id', async (request, response) => {
   }
   const idToDelete = blogFound.blogId
   user.blogs = user.blogs.filter(x => x._id !== idToDelete)
-  //logger.info('Id to del', idToDelete)
+  logger.info(`Deleting blog with id: ${idToDelete}.`)
   const result = await Blog.findByIdAndRemove(idToDelete)
   response.status(204).json(result)
 })
@@ -129,7 +129,7 @@ blogsRouter.put('/addlike/:id', async (request, response) => {
   // Check if it is a real user
   const userFound = await findUser(request, response)
   if(!userFound.user) {
-    logger.error("User is not found!")
+    logger.error('User is not found!')
     return userFound.error
   }
 
@@ -137,7 +137,7 @@ blogsRouter.put('/addlike/:id', async (request, response) => {
 
   const id = request.params.id
   const blog = await Blog.findById(id)
- 
+
   if(!blog) {
     logger.error(`No blog with id: ${id}`)
     response.status(404).end()
@@ -154,7 +154,7 @@ blogsRouter.put('/addlike/:id', async (request, response) => {
 })
 
 blogsRouter.put('/addcomment/:id', async (request, response) => {
- 
+
   const userFound = await findUser(request, response)
   if(!userFound.user) {
     return userFound.error
@@ -168,15 +168,15 @@ blogsRouter.put('/addcomment/:id', async (request, response) => {
   }
 
   const body = request.body
-  
-  const newComment = { text: body.text, postedBy: user._id } 
-  
-  const update = { 
-    comments: blog.comments ? 
-      [ ...blog.comments, newComment ] : 
+
+  const newComment = { text: body.text, postedBy: user._id }
+
+  const update = {
+    comments: blog.comments ?
+      [ ...blog.comments, newComment ] :
       [ newComment ]
   }
-  
+
   const result = await Blog.findByIdAndUpdate(blogId, update, { new: true })
   response.status(200).json(result)
 })

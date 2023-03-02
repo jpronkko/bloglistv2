@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { addCommentToBlog, addLikeToBlog, deleteBlog } from '../reducers/blogReducer'
 import { errorMessage, message } from '../reducers/notificationReducer'
 import useField from './useField'
+import { deleteUserBlog } from '../reducers/userInfoReducer'
 
 import {
   Button,
@@ -57,12 +58,14 @@ const Blog = ({ blog }) => {
     if(!window.confirm(`Do you really want to delete blog ${blog.title}?`))
       return
 
-    try {
-      dispatch(deleteBlog(blog))
+    console.log(`Deletea: ${user.id}, blog id: ${blog.id}`)
+    dispatch(deleteBlog(blog)).then(() => {
+      console.log(`fuketi fuk 1 ${user.id}, blog id: ${blog.id}`)
+      dispatch(deleteUserBlog(user.id, blog.id))
+      console.log("fuketi fuk 1")
       navigate('/')
-    } catch (error) {
-      errorMessage(error.message)
-    }
+    })
+    .catch(error => dispatch(errorMessage(error.message)))
   }
 
   const showComments = () => {

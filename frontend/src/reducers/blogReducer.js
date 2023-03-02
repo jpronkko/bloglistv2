@@ -4,7 +4,6 @@ export const initBlogs = () => {
   return async dispatch => {
     //const blogs = await blogService.getAll()
     const blogs = await blogService.getAllWithUserIds()
-    console.log("Init Blogs Got: ", blogs)
     dispatch({
       type: 'INIT_BLOGS',
       data: blogs

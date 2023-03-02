@@ -22,7 +22,7 @@ const BlogList = ({title, blogs}) => {
     return(
       <Card sx={{minWidth: 275}}>
         <CardContent>
-        <Typography variant='h5'>
+        <Typography variant='h6'>
          {blog.title}
         </Typography>
         <Typography sx={{marginBottom: 1}} color="textSecondary">
@@ -38,7 +38,7 @@ const BlogList = ({title, blogs}) => {
 
   return(
    <div style={{padding: 5, margin: 1}}>
-      <Typography variant='h4'>
+      <Typography variant='h5'>
         {title}
       </Typography>
 

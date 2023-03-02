@@ -51,6 +51,12 @@ const App = () => {
     .catch(error => dispatch(errorMessage(error.message)))
   }, [dispatch])
 
+  useEffect(() =>  {
+    console.log("allUsers")
+    console.log(allUsers)
+    console.log("allBlogs")
+    console.log(allBlogs)
+  }, [allUsers, allBlogs])
   const loginForm = () => {
     return (
       <>
@@ -82,7 +88,7 @@ const App = () => {
 
           <Route path="/blogs/:id" element={
              matchedBlog ? <Blog blog={matchedBlog} /> :
-             <Error msg={`No user found with id ${matchedBlog?.id}.`}/> 
+             <Error msg={`No blog found with id ${matchedBlog?.id}.`}/> 
             } 
           />  
           
@@ -101,22 +107,6 @@ const App = () => {
     )
   }
 
-  /*
-  <Route path="/blogs/:id" element={<Error msg={"Straight blog" + matchedBlog?.id}/>} />
-  */
-  /*
-
-          <Route 
-            path='/users/:id' 
-            element={matchedUser ? <User user={matchedUser} /> : <Navigate replace to="/error" msg={"kre" + userPathMatch?.params.id} />}  
-          />
-
-   <Route 
-            path="/blogs/:id" 
-            element={matchedBlog ? <Blog blog={matchedBlog}/> : <Navigate replace to="/error" msg={"pre" + blogPathMatch?.params.id} />}  
-          />
-*/
-  // <Route path="blogs/63fdf83e5174c5e62fe74c2e" element={<Error msg="Straight blog" />} />
   return (
     <ThemeProvider theme={theme}>
       <Container>

@@ -9,16 +9,12 @@ const setToken = newToken => {
 }
 
 const getAll = async () => {
-  console.log("Network: Trying to fetch all blogs from ", blogsUrl)
   const response = await axios.get(blogsUrl)
-  console.log("Network: Got response: ", response.data)
   return response.data
 }
 
 const getAllWithUserIds = async () => {
-  console.log("Network: Trying to fetch all blogs from ", blogsUrl)
   const response = await axios.get(blogsUrl + '/all')
-  console.log("Network: Got response: ", response.data)
   return response.data
 }
 
@@ -26,12 +22,6 @@ const getConfig = () => {
   return { headers: { Authorization: token } }
 }
 
-/*const getBlogsForUser = async () => {
-  const config = getConfig()
-  const response = await axios.get(`${blogsForUserUrl}`, config)
-  console.log(response.data)
-  return response.data
-}*/
 
 const create = async newObject => {
   const config = getConfig()
@@ -54,7 +44,7 @@ const addComment = async (blog, comment) => {
 const deleteBlog = async (blogToDelete) => {
   const config = getConfig()
   const response = await axios.delete(`${blogsUrl}/${blogToDelete.id}`, config)
-  return response.data
+  return response
 }
 
 export default { 
