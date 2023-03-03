@@ -9,8 +9,8 @@ processes = []
   PORT = "8080"
 
 [deploy]
-  release_command = "npm run build"
-  
+  release_command = "npm run build:ui"
+
 [experimental]
   auto_rollback = true
 
