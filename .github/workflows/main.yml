@@ -24,7 +24,7 @@ jobs:
         run: |
           echo "Env var PORT: $PORT"
       - name: install
-        run: npm install
+        run: npm install && cd ./frontend && npm install
       - name: lint
         run: npm run eslint
       - name: build
