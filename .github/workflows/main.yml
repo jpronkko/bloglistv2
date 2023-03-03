@@ -1,12 +1,17 @@
-name: Hello World!
+name: Test and deploy
 
 on:
   push:
     branches:
       - main
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
+  PORT: ${{ vars.PORT }}
 
 jobs:
-  hello_world_job:
+  test_job:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -16,7 +21,7 @@ jobs:
 
       - name: Say hello
         run: |
-          echo "Hello World!"
+          echo "Hello World at port $PORT!"
       - name: install
         run: npm install
       - name: lint
@@ -31,5 +36,5 @@ jobs:
           command: npm run test:e2e
           start: npm run start:test
           wait-on: http://localhost:8080
-          
+
         
