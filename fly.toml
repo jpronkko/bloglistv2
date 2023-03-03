@@ -8,6 +8,9 @@ processes = []
 [env]
   PORT = "8080"
 
+[deploy]
+  release_command = "npm run build"
+  
 [experimental]
   auto_rollback = true
 
