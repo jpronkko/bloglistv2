@@ -9,7 +9,10 @@ processes = []
   PORT = "8080"
 
 [deploy]
-  release_command = "npm run build:ui"
+  release_command = "npm run build"
+
+[processes]
+  app = "node index.js"
 
 [experimental]
   auto_rollback = true

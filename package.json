@@ -6,9 +6,9 @@
   "scripts": {
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
-    "build:ui": "rm -fr build && cd ./frontend && npm run build && cp -r build ../",
-    "deploy": "git push heroku main",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
+    "build": "rm -fr build && cd ./frontend && npm run build && cp -r build ../",
+    "deploy": "flyctl deploy",
+    "deploy:full": "npm run build && npm run deploy",
     "lint": "eslint .",
     "eslint": "eslint './**/*.{js,jsx}'",
     "test": "NODE_ENV=test jest --verbose --runInBand",
