@@ -19,4 +19,10 @@ const getAll = async () => {
   return response.data
 }
 
-export default { login, createUser, getAll }
+ const userService = { 
+  login, 
+  createUser, 
+  getAll 
+}
+
+export default userService

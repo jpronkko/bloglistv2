@@ -47,13 +47,14 @@ const deleteBlog = async (blogToDelete) => {
   return response
 }
 
-export default { 
+const blogService = {
   getAll, 
   getAllWithUserIds, 
-  //getBlogsForUser, 
   create, 
   deleteBlog, 
   addLikes, 
   addComment,
   setToken,
- } 
+}
+
+export default blogService 
