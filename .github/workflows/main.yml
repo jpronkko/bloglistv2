@@ -13,7 +13,7 @@ env:
 
 jobs:
   test_job:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -22,13 +22,13 @@ jobs:
 
       - name: Say hello
         run: |
-          echo "Hello World at port $PORT!"
+          echo "Env var PORT: $PORT"
       - name: install
         run: npm install
       - name: lint
         run: npm run eslint
       - name: build
-        run: npm run eslint
+        run: npm run build:ui
       - name: api tests
         run: npm test
       - name: e2e tests
