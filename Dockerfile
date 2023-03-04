@@ -19,9 +19,24 @@ WORKDIR /app
 
 ENV NODE_ENV production
 
-COPY . .
+#COPY . .
 
-RUN npm install && npm run build
+COPY ./ ./
+WORKDIR /app/frontend
+RUN npm install -g npm@9.6.0
+RUN npm ci
+WORKDIR /app
+RUN npm ci
+RUN npm run build
+
+
+##RUN npm install && npm run build
+
+# RUN npm install 
+# RUN cd ./frontend && npm install
+# RUN npm run build
+
+
 FROM debian:bullseye
 RUN apt-get update
 
